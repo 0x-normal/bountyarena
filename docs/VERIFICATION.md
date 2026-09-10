@@ -8,4 +8,5 @@
 - Vercel: production Next.js build passed.
 - Local HTTP: application, API config, bounty listing and OpenAPI returned 200.
 - Browser interaction and WebMCP execution: not tested; no permitted browser QA context was requested.
-- GenLayer Studio deployment and live bounty transactions: pending explicit approval. The preview must not claim a deployed contract until deployment.json contains a verified address.
+- GenLayer Studio: deployed and tested with real API submissions, independent model reviews, winner selection, payout/refund balance checks, unauthorized claim rejection and double-payout prevention. See LIVE_TEST_RESULTS.json.
+- The preview uses a separate clean contract with no integration-test entries.

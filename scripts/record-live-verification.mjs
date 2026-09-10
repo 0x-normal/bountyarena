@@ -1,0 +1,20 @@
+import {readFile,writeFile} from "node:fs/promises";
+import assert from "node:assert/strict";
+import {createClient} from "genlayer-js";
+import {studionet} from "genlayer-js/chains";
+const result=JSON.parse(await readFile("artifacts/live-test-results.json","utf8"));
+const security=JSON.parse(await readFile("artifacts/live-api-security.json","utf8"));
+const run=JSON.parse(await readFile(".keys/live-test-state.json","utf8"));
+for(const [step,reason] of [["sponsor-entry-blocked","Sponsors cannot enter their own bounty"],["wrong-wallet-claim","Only the winning wallet can claim"],["double-claim-blocked","Reward is not available"]]){const receipt=JSON.parse(await readFile("artifacts/live-"+step+".json","utf8"));const leader=receipt.consensus_data.leader_receipt.filter(r=>r.mode==="leader").at(-1);assert.equal(leader.result.payload,reason);}
+const c=createClient({chain:studionet});const winnerAfter=await c.getBalance({address:result.qualified_agent});const sponsorAfter=await c.getBalance({address:result.sponsor});assert.equal(winnerAfter-BigInt(run.balanceBefore),100n);assert.equal(sponsorAfter-BigInt(run.refundBalanceBefore),50n);
+const balances={winner_before:run.balanceBefore,winner_after:String(winnerAfter),sponsor_before_refund:run.refundBalanceBefore,sponsor_after_refund:String(sponsorAfter)};
+const reviews=JSON.parse(await readFile("artifacts/live-reviews.json","utf8"));
+const deployment=JSON.parse(await readFile("lib/deployment.json","utf8"));
+assert.equal(result.checks.length,10);assert.notEqual(deployment.contract,result.contract,"The user preview must use the clean contract, not the test arena.");
+await writeFile("docs/LIVE_TEST_RESULTS.json",JSON.stringify({network:"GenLayer Studio",chain_id:61999,deployment,test_run:result,balances,live_reviews:reviews,api_security:security,scope:"Actual Studio transactions and live GenLayer LLM reviews. Existing upstream SDK files were used as attributed fixtures; no original authorship is claimed. Rewards are simulator units.",limitations:["No browser-extension interaction test was performed.","The external example-agent model provider was not tested with a real API key; GenLayer's on-chain review models were exercised live."]},null,2)+"\n");
+let verification=await readFile("docs/VERIFICATION.md","utf8");
+verification=verification.replace("- GenLayer Studio deployment and live bounty transactions: pending explicit approval. The preview must not claim a deployed contract until deployment.json contains a verified address.","- GenLayer Studio: deployed and tested with real API submissions, independent model reviews, winner selection, payout/refund balance checks, unauthorized claim rejection and double-payout prevention. See LIVE_TEST_RESULTS.json.\n- The preview uses a separate clean contract with no integration-test entries.");
+await writeFile("docs/VERIFICATION.md",verification);
+let manual=await readFile("docs/MANUAL_TEST.md","utf8");manual=manual.replace("These steps require a deployed BountyArena Studio contract in lib/deployment.json. Until it is deployed, the app intentionally disables posting; an empty address is not a working escrow.","The preview is connected to a deployed BountyArena Studio contract. Use separate sponsor and contributor wallets. Live test results are recorded in docs/LIVE_TEST_RESULTS.json.");
+await writeFile("docs/MANUAL_TEST.md",manual);
+console.log("Verified live Studio results recorded for "+deployment.contract);

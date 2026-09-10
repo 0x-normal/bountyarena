@@ -1,0 +1,150 @@
+{
+  "network": "GenLayer Studio",
+  "chain_id": 61999,
+  "deployment": {
+    "contract": "0x95Df5962b8e357834B64BadFA7ac0C3D9B99Efe8",
+    "network": "studionet",
+    "transaction": "0x602416bbe41c24c447e22b4263c23c05e6bbac4af3aa05c53cf02f34f4d89710"
+  },
+  "test_run": {
+    "contract": "0x83d962bbEE20648363a62Efd7aEFf541208e196b",
+    "bounty": "live-1789079036112",
+    "sponsor": "0x4dbEee695d37E0A28179e06726815887Cf4b289d",
+    "incomplete_agent": "0x4CACaE57E7d17EBA72111F79f08f538263866F80",
+    "qualified_agent": "0xB54F0d14c4f759ab3de08510AF6456E563a8497a",
+    "reward_wei": "100",
+    "refund_wei": "50",
+    "checks": [
+      "funding",
+      "signed-api-submissions",
+      "negative-review",
+      "positive-review",
+      "sponsor-entry-blocked",
+      "winner-selection",
+      "wrong-wallet-blocked",
+      "payout-balance",
+      "double-claim-blocked",
+      "refund-balance"
+    ],
+    "transactions": {
+      "create": {
+        "hash": "0x84e6348c917495e9e496fcaaedb241994c02d3013eecd055171d8144b0f7de4a",
+        "complete": true,
+        "execution": "success"
+      },
+      "create-refund": {
+        "hash": "0x94dedb43c0e7852efeee6e6cfa2a4f89e8e9eae55ab831be0186c19d69810176",
+        "complete": true,
+        "execution": "success"
+      },
+      "incomplete-agent": {
+        "hash": "0x36fd939edfec194366583179f72a9cd64a0d1e29813908faa6d2dce60f4742ae",
+        "complete": true
+      },
+      "qualified-agent": {
+        "hash": "0x4b7073062d30af974a56dfc4eef0cace507359c47ecf5393ead146280b4d64c2",
+        "complete": true
+      },
+      "review-incomplete": {
+        "hash": "0x42c3cade66e8acbf65736288f8aceb2ff36bc1f7133bc1c4002f7df7312b866e",
+        "complete": true,
+        "execution": "success"
+      },
+      "review-qualified": {
+        "hash": "0xca879fd669a07639c2f644e67decf9236892848218a3b256649bdc479a177ea3",
+        "complete": true,
+        "execution": "success"
+      },
+      "sponsor-entry-blocked": {
+        "hash": "0xde542c791607e62f4aa875e0be26330f4a5c6d20ff2bc4c2d41940d68e872cf6",
+        "complete": true,
+        "execution": "failed"
+      },
+      "settle": {
+        "hash": "0x30597482df390aab8262ade4bf1c1500ebf3dffc83ae5ebb2a05a36b8d64829f",
+        "complete": true,
+        "execution": "success"
+      },
+      "wrong-wallet-claim": {
+        "hash": "0x482bd6d11d065d86a7c01f711e318f5eda943bf7591970a0b7e5b81190fc5ba0",
+        "complete": true,
+        "execution": "failed"
+      },
+      "claim": {
+        "hash": "0x98759bb94083c803b03160cab42fb9640862020badac0474e42c0eae1b4bbf9e",
+        "complete": true,
+        "execution": "success"
+      },
+      "double-claim-blocked": {
+        "hash": "0x6384b78597ce17959965c17dc107910011b514ef2ccca334117d871fde7033d7",
+        "complete": true,
+        "execution": "failed"
+      },
+      "refund": {
+        "hash": "0xcf2344b42904a0da491a7ec4b9c8c2f815cbb206884e9bc545f6d40c80a6a94f",
+        "complete": true,
+        "execution": "success"
+      }
+    },
+    "completed_at": "2026-09-10T22:52:38.057Z"
+  },
+  "balances": {
+    "winner_before": "0",
+    "winner_after": "100",
+    "sponsor_before_refund": "999999999999850",
+    "sponsor_after_refund": "999999999999900"
+  },
+  "live_reviews": [
+    {
+      "agent": "incomplete-agent",
+      "evidence": "https://raw.githubusercontent.com/genlayerlabs/genlayer-js/1b7f50a3a3f2963ea857941b0fb386081dd5c326/LICENSE",
+      "review": {
+        "criteria": [
+          {
+            "met": false,
+            "quote": "",
+            "reason": "The evidence contains only an MIT license text with no installation commands, documentation, or instructions of any kind."
+          },
+          {
+            "met": false,
+            "quote": "",
+            "reason": "The evidence contains only an MIT license text with no code examples, imports, or client initialization demonstrations."
+          }
+        ],
+        "decision": "rejected",
+        "reason": "One or more requirements are not met."
+      }
+    },
+    {
+      "agent": "qualified-agent",
+      "evidence": "https://raw.githubusercontent.com/genlayerlabs/genlayer-js/1b7f50a3a3f2963ea857941b0fb386081dd5c326/README.md",
+      "review": {
+        "criteria": [
+          {
+            "met": true,
+            "quote": "$ npm install genlayer-js",
+            "reason": "Evidence contains the exact install command in the Installation section."
+          },
+          {
+            "met": true,
+            "quote": "import { localnet } from 'genlayer-js/chains';\nimport { createClient } from \"genlayer-js\";\n\nconst client = createClient({\n  chain: localnet,\n});",
+            "reason": "Evidence includes a TypeScript example importing createClient and initializing the client."
+          }
+        ],
+        "decision": "qualified",
+        "reason": "All requirements met by the evidence."
+      }
+    }
+  ],
+  "api_security": {
+    "check": "tampered signed entry rejected before broadcast",
+    "http_status": 400,
+    "error": "Signed transaction does not match the entry.",
+    "tested_at": "2026-09-10T22:25:54.057Z"
+  },
+  "scope": "Actual Studio transactions and live GenLayer LLM reviews. Existing upstream SDK files were used as attributed fixtures; no original authorship is claimed. Rewards are simulator units.",
+  "limitations": [
+    "No browser-extension interaction test was performed.",
+    "The external example-agent model provider was not tested with a real API key; GenLayer's on-chain review models were exercised live."
+  ]
+}

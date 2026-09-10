@@ -1,6 +1,6 @@
 # Test BountyArena
 
-These steps require a deployed BountyArena Studio contract in lib/deployment.json. Until it is deployed, the app intentionally disables posting; an empty address is not a working escrow.
+The preview is connected to a deployed BountyArena Studio contract. Use separate sponsor and contributor wallets. Live test results are recorded in docs/LIVE_TEST_RESULTS.json.
 
 1. Open the app in Chrome with Rabby or another Ethereum wallet. Connect wallet A and approve switching to GenLayer Studio.
 2. Click Get test tokens. This calls the Studio simulator faucet for 0.001 simulated GEN. No real tokens are used.
