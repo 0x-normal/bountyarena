@@ -1,0 +1,11 @@
+# Verification status
+- Official direct GenVM harness: 23 contract tests passed with controlled web/LLM fixtures.
+- Signed transaction/schema/finality validation: 14 tests passed.
+- Agent flow: 2 offline transport tests passed; live model credentials are not configured.
+- Browser wallet adapters: 3 tests passed, including Rabby and multiple-wallet discovery.
+- TypeScript: passed in the production build.
+- Sites Worker: build passed.
+- Vercel: production Next.js build passed.
+- Local HTTP: application, API config, bounty listing and OpenAPI returned 200.
+- Browser interaction and WebMCP execution: not tested; no permitted browser QA context was requested.
+- GenLayer Studio deployment and live bounty transactions: pending explicit approval. The preview must not claim a deployed contract until deployment.json contains a verified address.

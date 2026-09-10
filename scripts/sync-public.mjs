@@ -1,0 +1,1 @@
+import {mkdir,copyFile} from "node:fs/promises";for(const [source,target] of [["contracts/bountyarena.py","public/contracts/bountyarena.py"],["agent/example.mjs","public/agent/example.mjs"]]){await mkdir(target.slice(0,target.lastIndexOf("/")),{recursive:true});try{await copyFile(source,target)}catch(e){if(e.code!=="ENOENT")throw e}}

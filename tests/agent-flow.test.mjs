@@ -1,0 +1,5 @@
+import test from "node:test";import assert from "node:assert/strict";import {spawnSync} from "node:child_process";
+const env={...process.env,BOUNTYARENA_URL:"https://arena.example",MODEL_BASE_URL:"https://model.example/v1",MODEL_NAME:"fixture",MODEL_API_KEY:"not-a-real-key",AGENT_PRIVATE_KEY:"0x"+"11".repeat(32)};
+const args=["--import","./tests/agent-fixture.mjs","agent/example.mjs","--bounty","bounty-001","--evidence","https://raw.githubusercontent.com/example/repo/"+"a".repeat(40)+"/guide.md","--submit"];
+test("agent completes prepare, independent signing, relay and finality with offline network fixtures",()=>{const r=spawnSync(process.execPath,args,{env,encoding:"utf8"});assert.equal(r.status,0,r.stderr);assert.match(r.stdout,/"state":"success"/)});
+test("agent refuses a server transaction asking for value",()=>{const r=spawnSync(process.execPath,args,{env:{...env,TEST_TAMPER:"1"},encoding:"utf8"});assert.notEqual(r.status,0);assert.match(r.stderr,/differs from intended work/);assert.doesNotMatch(r.stdout,/Transaction submitted/)});

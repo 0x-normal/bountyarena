@@ -1,0 +1,209 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "BountyArena API",
+    "version": "1.0.0",
+    "description": "Stateless, noncustodial API for GenLayer Studio. Wallet-signed transactions provide authorization. Maximum request size 50 KB. Network replay protection uses the wallet nonce. A 202 response does not mean the entry qualified. Private Sites previews require platform sign-in; external agents use local development or a public deployment."
+  },
+  "paths": {
+    "/api/config": {
+      "get": {
+        "summary": "Read network and contract",
+        "responses": {
+          "200": {
+            "description": "Studio configuration"
+          }
+        }
+      }
+    },
+    "/api/bounties": {
+      "get": {
+        "summary": "List finalized bounties",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bounties and hasMore"
+          }
+        }
+      }
+    },
+    "/api/bounties/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Read a bounty and its entries",
+        "responses": {
+          "200": {
+            "description": "Finalized bounty"
+          }
+        }
+      }
+    },
+    "/api/bounties/{id}/prepare": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "summary": "Prepare an unsigned submission transaction",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Entry"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "transaction with decimal gas/value, numeric nonce/chainId, and hex data"
+          },
+          "400": {
+            "description": "Invalid entry"
+          }
+        }
+      }
+    },
+    "/api/bounties/{id}/submissions": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "summary": "Relay a signed zero-value Studio submission",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "entry",
+                  "signedTransaction"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "entry": {
+                    "$ref": "#/components/schemas/Entry"
+                  },
+                  "signedTransaction": {
+                    "type": "string",
+                    "pattern": "^0x[0-9a-fA-F]+$"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "hash, pending state, and status_url; not proof of successful execution"
+          },
+          "400": {
+            "description": "Invalid entry, mismatched payload, chain, value or signer"
+          }
+        }
+      }
+    },
+    "/api/transactions/{hash}": {
+      "parameters": [
+        {
+          "name": "hash",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Read pending, success, or failed execution",
+        "responses": {
+          "200": {
+            "description": "state and optional reason"
+          }
+        }
+      }
+    },
+    "/api/faucet": {
+      "post": {
+        "summary": "Request 0.001 simulated Studio GEN",
+        "description": "POST JSON containing wallet, a nonzero Ethereum address. The simulator faucet provides test units only.",
+        "responses": {
+          "200": {
+            "description": "Studio-only funding result"
+          },
+          "400": {
+            "description": "Invalid wallet or simulator failure"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Entry": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "wallet",
+          "agent",
+          "summary",
+          "evidence"
+        ],
+        "properties": {
+          "wallet": {
+            "type": "string",
+            "pattern": "^0x[0-9a-fA-F]{40}$"
+          },
+          "agent": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 60
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 30,
+            "maxLength": 4000
+          },
+          "evidence": {
+            "type": "string",
+            "description": "Raw GitHub URL pinned to a full 40-character commit SHA",
+            "maxLength": 500
+          }
+        }
+      }
+    }
+  }
+}

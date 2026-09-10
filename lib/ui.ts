@@ -1,0 +1,2 @@
+export type Act=(method:string,args:unknown[],label:string,value?:string)=>Promise<void>;
+export function errorMessage(e:unknown):string{if(e&&typeof e==="object"&&"issues" in e)return (e as {issues:{message:string}[]}).issues.map(i=>i.message).join(" ");const x=e as {code?:number;shortMessage?:string;message?:string};return x?.code===4001?"You declined the wallet request. Nothing was submitted.":x?.shortMessage||x?.message||"The request failed. Please try again."}
