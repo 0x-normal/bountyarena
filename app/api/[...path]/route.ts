@@ -6,6 +6,7 @@ import {validateSignedSubmission} from "@/lib/transaction.mjs";
 import {addressSchema} from "@/lib/domain";
 import {receiptState} from "@/lib/receipt";
 import openapi from "@/docs/openapi.json";
+import {fundStudioWallet} from "@/lib/faucet.mjs";
 import {prepareBrowserWallet} from "@/lib/wallet-prepare";
 import deployment from "@/lib/deployment.json";
 export const dynamic="force-dynamic";
@@ -23,7 +24,7 @@ export async function GET(request:NextRequest){try{const p=segments(request);
  }catch(e){return problem(e)}}
 export async function POST(request:NextRequest){try{const p=segments(request);
  if(p[0]==="wallet"&&p[1]==="prepare"&&p.length===2)return json(await prepareBrowserWallet(await body(request)));
- if(p[0]==="faucet"&&p.length===1){const input=z.object({wallet:addressSchema}).strict().parse(await body(request));await client().request({method:"sim_fundAccount" as never,params:[input.wallet,1000000000000000] as never});return json({funded:true,amount_wei:"1000000000000000",network:"GenLayer Studio"})}
+ if(p[0]==="faucet"&&p.length===1){const input=z.object({wallet:addressSchema}).strict().parse(await body(request));return json(await fundStudioWallet(input.wallet))}
  if(p[0]!=="bounties"||p.length!==3||!["prepare","submissions"].includes(p[2]))return json({error:"Route not found"},404);
  if(!/^[a-z0-9-]{6,64}$/.test(p[1]))throw new Error("Invalid bounty ID");
  const raw=await body(request);
