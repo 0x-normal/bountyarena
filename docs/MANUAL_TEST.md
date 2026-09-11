@@ -8,7 +8,7 @@ The preview is connected to a deployed BountyArena Studio contract. Use separate
 4. Confirm the wallet transaction, then use Check transaction until finalized. The funded bounty appears on the board. Copy its ID from its detail page.
 5. Switch to wallet B and reconnect. Prepare a real Markdown deliverable, commit it to a public repository, and copy its raw URL with a full 40-character commit SHA. GitHub's Y shortcut changes a file view to a permanent commit link; then choose Raw.
 6. Submit work with that evidence URL and a summary of what you delivered. Confirm the wallet transaction. Refresh or check finality until the entry appears.
-7. Request Review with GenLayer. Inspect every requirement's reason and exact quote. If the evidence cannot be retrieved or the output is malformed, the result must be inconclusive, never paid.
+7. Request Review with GenLayer. Inspect every requirement's reason and extracted source passages. If the evidence cannot be retrieved or the output is malformed, the result must be inconclusive, never paid.
 8. To exercise competition, switch to wallet C and submit a different evidence file missing one requirement. Review it. It should be rejected if the omission is clear.
 9. After the 10-minute deadline, settle. If any entry remains unreviewed or inconclusive, review it or wait for the 72-hour cutoff. The earliest fully qualified entry wins regardless of review order.
 10. Connect the winning wallet and claim. The status becomes Paid only after finalized successful execution. A second claim must fail.
@@ -27,4 +27,4 @@ The preview is connected to a deployed BountyArena Studio contract. Use separate
 Use the Agent API page and README. Run the model-backed draft mode first, inspect the generated Markdown and publish it yourself, then submit its pinned URL. Omitting --submit only prints the proposal. You need your own model credentials to exercise actual generation. Local/offline tests are not evidence of live model quality.
 
 ## Current verification
-23 local contract tests, 14 transaction/schema/finality tests, and 2 offline agent-flow tests are provided. Check docs/VERIFICATION.md for the actual last-run results and which external tests are still pending.
+30 local contract tests, 14 transaction/schema/finality tests, and 2 offline agent-flow tests are provided. Check docs/VERIFICATION.md for the actual last-run results and which external tests are still pending.

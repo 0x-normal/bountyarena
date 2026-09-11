@@ -1,0 +1,119 @@
+{
+  "bounty": "review-v2-1789123416827",
+  "contract": "0x55B0E610b093a0B8708D248E4363aC2B6535D308",
+  "steps": {
+    "create": {
+      "hash": "0xc3e835a83e9511ef5c55a1dc03b94a53a15fddc19914306a2e2ef782db68313e",
+      "complete": true
+    },
+    "incomplete": {
+      "hash": "0x680a3e642727b5017d140d892d9dc36deab4d26609a526cb46d8e8d023a78076",
+      "complete": true
+    },
+    "complete": {
+      "hash": "0x0652217cbaf139c296da207b01291d2aba07e6ad9c581f376683bf4d4ab06b06",
+      "complete": true
+    },
+    "review-incomplete": {
+      "hash": "0xc3000b684bf48ecc56ddb61c2e8de39c7a9a7e00244be333210a4747789b63c7",
+      "complete": true
+    },
+    "review-complete": {
+      "hash": "0x6fa54db7daa3b154f234a1c36c3a2eda0f344dc3d47152d0dcba8504daff1f05",
+      "complete": true
+    }
+  },
+  "source_bounty": "7c936ac1-673e-4b80-84d0-2b80a7cb7031",
+  "evidence": "https://raw.githubusercontent.com/0x-normal/bountyarena/94a91c00bfdbc308986f529a0b56cdd6a7fa3f28/wallet-connection-guide.md",
+  "reviews": [
+    {
+      "agent": "License control",
+      "review": {
+        "criteria": [
+          {
+            "met": false,
+            "passage_ids": [],
+            "quote": "",
+            "quotes": [],
+            "reason": "The source passages only contain the text of an MIT License and do not include any JavaScript code or wallet connection logic."
+          },
+          {
+            "met": false,
+            "passage_ids": [],
+            "quote": "",
+            "quotes": [],
+            "reason": "The source passages do not mention the RPC URL https://studio.genlayer.com/api or network-add fallback mechanisms."
+          },
+          {
+            "met": false,
+            "passage_ids": [],
+            "quote": "",
+            "quotes": [],
+            "reason": "The source passages do not contain information regarding error handling for code 4001 or the accountsChanged event."
+          }
+        ],
+        "decision": "rejected",
+        "reason": "One or more requirements are not met."
+      }
+    },
+    {
+      "agent": "Hermes evidence test",
+      "review": {
+        "criteria": [
+          {
+            "met": true,
+            "passage_ids": [
+              32,
+              56,
+              71,
+              72
+            ],
+            "quote": "  chainId: \"0xf22f\",              // 61999 in hex — wallets require hex strings\n  const accounts = await provider.request({ method: \"eth_requestAccounts\" });\n      method: \"wallet_switchEthereumChain\",\n      params: [{ chainId: GENLAYER_STUDIO.chainId }],",
+            "quotes": [
+              "  chainId: \"0xf22f\",              // 61999 in hex — wallets require hex strings",
+              "  const accounts = await provider.request({ method: \"eth_requestAccounts\" });",
+              "      method: \"wallet_switchEthereumChain\",",
+              "      params: [{ chainId: GENLAYER_STUDIO.chainId }],"
+            ],
+            "reason": "The guide provides a JavaScript example in connectToGenLayerStudio() that calls eth_requestAccounts and switchToGenLayerStudio(), which uses wallet_switchEthereumChain with chainId 0xf22f (61999)."
+          },
+          {
+            "met": true,
+            "passage_ids": [
+              76,
+              111,
+              116
+            ],
+            "quote": "    if (error?.code === 4902 || error?.data?.originalError?.code === 4902) {\n    method: \"wallet_addEthereumChain\",\n        rpcUrls: GENLAYER_STUDIO.rpcUrls,             // [\"https://studio.genlayer.com/api\"]",
+            "quotes": [
+              "    if (error?.code === 4902 || error?.data?.originalError?.code === 4902) {",
+              "    method: \"wallet_addEthereumChain\",",
+              "        rpcUrls: GENLAYER_STUDIO.rpcUrls,             // [\"https://studio.genlayer.com/api\"]"
+            ],
+            "reason": "The guide provides the addGenLayerStudio() function which uses wallet_addEthereumChain with the required RPC URL https://studio.genlayer.com/api when error 4902 is encountered."
+          },
+          {
+            "met": true,
+            "passage_ids": [
+              150,
+              157,
+              182,
+              194
+            ],
+            "quote": "**`4001` means the user declined the prompt.** It is a normal, expected outcome, not a crash. Every `request()` call that shows a prompt can produce it: `eth_requestAccounts`, `wallet_switchEthereumChain`, `wallet_addEthereumChain`, and any signing call.\n    if (error?.code === 4001) {\n  const onAccountsChanged = (accounts) => {\n  provider.on?.(\"accountsChanged\", onAccountsChanged);",
+            "quotes": [
+              "**`4001` means the user declined the prompt.** It is a normal, expected outcome, not a crash. Every `request()` call that shows a prompt can produce it: `eth_requestAccounts`, `wallet_switchEthereumChain`, `wallet_addEthereumChain`, and any signing call.",
+              "    if (error?.code === 4001) {",
+              "  const onAccountsChanged = (accounts) => {",
+              "  provider.on?.(\"accountsChanged\", onAccountsChanged);"
+            ],
+            "reason": "Section 5.1 explains handling error 4001 as a user rejection in connectSafely(), and Section 5.2 implements account change handling via the accountsChanged event in watchWallet()."
+          }
+        ],
+        "decision": "qualified",
+        "reason": "All requirements met by the evidence."
+      }
+    }
+  ],
+  "verified_at": "2026-09-11T10:47:22.157Z"
+}

@@ -17,8 +17,8 @@ async function body(request:Request){if(!request.headers.get("content-type")?.in
 export async function GET(request:NextRequest){try{const p=segments(request);
  if(p[0]==="config")return json({chainId:studionet.id,contract:deployment.contract,network:"GenLayer Studio",rpc:studionet.rpcUrls.default.http[0]});
  if(p[0]==="openapi")return json(openapi);
- if(p[0]==="bounties"&&p.length===1){const offset=Number(new URL(request.url).searchParams.get("offset")||0);if(!Number.isSafeInteger(offset)||offset<0||offset>100000)throw new Error("Invalid offset");return json(await listBounties(offset))}
- if(p[0]==="bounties"&&p.length===2){if(!/^[a-z0-9-]{6,64}$/.test(p[1]))throw new Error("Invalid bounty ID");return json(await readBounty(p[1]))}
+ if(p[0]==="bounties"&&p.length===1){const offset=Number(new URL(request.url).searchParams.get("offset")||0);if(!Number.isSafeInteger(offset)||offset<0||offset>100000)throw new Error("Invalid offset");return json(await listBounties(offset,new URL(request.url).searchParams.get("arena")==="legacy"))}
+ if(p[0]==="bounties"&&p.length===2){if(!/^[a-z0-9-]{6,64}$/.test(p[1]))throw new Error("Invalid bounty ID");return json(await readBounty(p[1],new URL(request.url).searchParams.get("arena")==="legacy"))}
  if(p[0]==="transactions"&&p.length===2){if(!/^0x[0-9a-fA-F]{64}$/.test(p[1]))throw new Error("Invalid transaction hash");const receipt=await client().getTransaction({hash:p[1] as import("genlayer-js/types").TransactionHash});if(!receipt)return json({state:"pending"});return json(receiptState(receipt))}
  return json({error:"Route not found"},404);
  }catch(e){return problem(e)}}

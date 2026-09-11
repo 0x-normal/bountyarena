@@ -20,14 +20,14 @@ def submit(c, vm, wallet, suffix='guide.md'):
     with vm.prank(wallet):
         c.submit_work('bounty-001', 'docs-agent', 'A provider guide explaining connection setup and errors.', URL.replace('guide.md', suffix))
 
-def review(c, vm, met=True, quote=BODY, status=200):
+def review(c, vm, met=True, passages=None, status=200):
     vm.mock_web('raw.github', {'status': status, 'body': BODY})
-    vm.mock_llm('BOUNTYARENA_REVIEW', {'criteria': [{'met': met, 'reason': 'The evidence includes the requested example.' if met else 'The required example is missing.', 'quote': quote}]})
+    vm.mock_llm('BOUNTYARENA_REVIEW', {'criteria': [{'met': met, 'reason': 'The evidence includes the requested example.' if met else 'The required example is missing.', 'passages': ([1] if met else []) if passages is None else passages}]})
     c.review_work('bounty-001', 0)
 
 def test_reward_recorded(arena):
     assert state(arena)['reward_wei'] == '100'
-    assert arena.get_version() == 'bountyarena/1.0'
+    assert arena.get_version() == 'bountyarena/2.0'
 
 def test_sponsor_cannot_compete(arena, direct_vm):
     with direct_vm.expect_revert('Sponsors cannot enter'):
@@ -59,7 +59,7 @@ def test_independent_validator_disagreement(arena, direct_vm, direct_bob):
     review(arena, direct_vm)
     direct_vm.clear_mocks()
     direct_vm.mock_web('raw.github', {'status': 200, 'body': BODY})
-    direct_vm.mock_llm('BOUNTYARENA_REVIEW', {'criteria':[{'met': False,'reason':'The required example is missing.','quote':''}]})
+    direct_vm.mock_llm('BOUNTYARENA_REVIEW', {'criteria':[{'met': False,'reason':'The required example is missing.','passages':[]}]})
     assert direct_vm.run_validator() is False
 
 def test_missing_evidence_inconclusive(arena, direct_vm, direct_bob):
@@ -67,14 +67,14 @@ def test_missing_evidence_inconclusive(arena, direct_vm, direct_bob):
     review(arena, direct_vm, status=404)
     assert state(arena)['entries'][0]['review']['decision'] == 'inconclusive'
 
-def test_fabricated_quote_inconclusive(arena, direct_vm, direct_bob):
+def test_unknown_passage_inconclusive(arena, direct_vm, direct_bob):
     submit(arena, direct_vm, direct_bob)
-    review(arena, direct_vm, quote='This quotation is not in the actual document.')
+    review(arena, direct_vm, passages=[999])
     assert state(arena)['entries'][0]['review']['decision'] == 'inconclusive'
 
 def test_rejected_cannot_claim(arena, direct_vm, direct_bob):
     submit(arena, direct_vm, direct_bob)
-    review(arena, direct_vm, met=False, quote='')
+    review(arena, direct_vm, met=False, passages=[])
     with direct_vm.prank(direct_bob), direct_vm.expect_revert('Reward is not available'):
         arena.claim_reward('bounty-001')
 
@@ -134,3 +134,21 @@ def test_conclusive_review_immutable(arena, direct_vm, direct_bob):
     review(arena, direct_vm)
     with direct_vm.expect_revert('conclusive review'):
         arena.review_work('bounty-001',0)
+
+@pytest.mark.parametrize('ids', [[True], [0], [-1], ['1'], [1,1], []])
+def test_invalid_source_ids_inconclusive(arena, direct_vm, direct_bob, ids):
+    submit(arena, direct_vm, direct_bob)
+    review(arena, direct_vm, passages=ids)
+    assert state(arena)['entries'][0]['review']['decision'] == 'inconclusive'
+
+def test_separate_source_passages_are_extracted_verbatim(arena, direct_vm, direct_bob):
+    submit(arena, direct_vm, direct_bob)
+    body = 'Request accounts using eth_requestAccounts.\n\nUnrelated explanation.\nSwitch with wallet_switchEthereumChain.'
+    direct_vm.mock_web('raw.github', {'status':200,'body':body})
+    direct_vm.mock_llm('BOUNTYARENA_REVIEW', {'criteria':[{'met':True,'reason':'Both required operations are shown.','passages':[1,3],'quote':'Invented ... text must never be stored.'}]})
+    arena.review_work('bounty-001',0)
+    result=state(arena)['entries'][0]['review']
+    assert result['decision']=='qualified'
+    assert result['criteria'][0]['quotes']==[body.splitlines()[0],body.splitlines()[3]]
+    assert 'Invented' not in result['criteria'][0]['quote']
+    assert direct_vm.run_validator() is True
