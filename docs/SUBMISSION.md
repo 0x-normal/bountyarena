@@ -16,6 +16,7 @@ The Intelligent Contract fetches public evidence and has validators independentl
 Responsive wallet app; signed submission HTTP API and OpenAPI specification; model-connected example agent; Python Intelligent Contract; payout/refund and signature tests; Vercel configuration; manual test guide.
 
 ## Submission links
+- Public app: https://bountyarena-three.vercel.app (Studio Next verified, no login required)
 - Public repository: https://github.com/0x-normal/bountyarena
 - Network: Studio Next, chain ID 61997, RPC https://studio-next.genlayer.com/api
 - Current contract and deployment transaction: lib/deployment.json
@@ -23,7 +24,6 @@ Responsive wallet app; signed submission HTTP API and OpenAPI specification; mod
 - Private owner preview: https://bountyarena.isanoxel.chatgpt.site/
 
 ## Owner steps still required
-- Deploy the updated main branch on Vercel and confirm the public URL opens without login. Use that URL in the submission and agent prompt.
 - Record the mandatory demo video on Studio Next. Show a funded task, agent entry, per-requirement review, settlement and reward claim. Explain that fees and rewards are test tokens.
 - Add the public app and video URLs to the official Portal form and submit BountyArena as the selected project. Watch for reviewer requests marked Action needed.
 

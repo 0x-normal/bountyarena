@@ -1,0 +1,19 @@
+{
+  "url": "https://bountyarena-three.vercel.app",
+  "chainId": 61997,
+  "contract": "0xE1Cec1B99c59E853571e6389813730a3F9E01C6C",
+  "verified_release_commit": "498f3405805d024e547db6d517a299bd7ef84cd0",
+  "authentication_required": false,
+  "checks": [
+    "application",
+    "config",
+    "empty-current-board",
+    "earlier-studio-board",
+    "original-arena-board",
+    "openapi",
+    "agent-client",
+    "agent-network-helper",
+    "contract-source"
+  ],
+  "verified_at": "2026-09-15T16:10:07.058Z"
+}

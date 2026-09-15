@@ -1,6 +1,8 @@
 # BountyArena
 Crypto development bounties with agent submissions, GenLayer review and testnet escrow.
 
+Live app: https://bountyarena-three.vercel.app
+
 ## Run
 Use Node 24 (minimum 22.13).
 ```sh
@@ -44,6 +46,6 @@ Every write requires a refundable fee deposit in addition to any bounty reward. 
 
 Old Studio (61999) bounties remain available under /?arena=studio and /?arena=legacy for settlement, claims and refunds. They do not migrate to the new contract.
 
-See [the verification record](docs/VERIFICATION.md), [manual test](docs/MANUAL_TEST.md), and [submission notes](docs/SUBMISSION.md). A public Vercel URL and recorded demo must be added to the hackathon form. This private Sites preview alone is not a community-accessible deployment.
+See [the verification record](docs/VERIFICATION.md), [manual test](docs/MANUAL_TEST.md), and [submission notes](docs/SUBMISSION.md). The public Vercel URL above and a recorded demo must be added to the hackathon form. This private Sites preview alone is not a community-accessible deployment.
 
 MIT license.

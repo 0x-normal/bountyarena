@@ -19,4 +19,6 @@ This release uses conservative SDK network-default allocations, not a tuned offl
 ## Historical results and remaining owner checks
 LIVE_TEST_RESULTS.json and REVIEWER_V2_TEST.json document earlier Studio (61999) runs. The Hermes guide test belongs to that earlier network; Hermes has not been rerun on Studio Next during this migration. Existing escrow remains on the earlier contracts, accessible from the app links.
 
-A public Vercel deployment still needs its URL checked. Record the mandatory demo on Studio Next and add both links to the hackathon submission. The existing private Sites preview is not evidence that the migration has been published: the current connector returned project_not_found while attempting to access it.
+Public Vercel deployment verified: https://bountyarena-three.vercel.app. The app, configuration, both earlier bounty lists, OpenAPI, downloadable agent files and contract source returned 200 without login. /api/config reported chain 61997 and the clean contract above. GitHub reports the production deployment of commit 498f3405805d024e547db6d517a299bd7ef84cd0 succeeded.
+
+Record the mandatory demo on this Studio Next deployment and add the public app/video links to the hackathon submission. The existing private Sites preview is not evidence that the migration has been published: the current connector returned project_not_found while attempting to access it.
