@@ -4,3 +4,5 @@
 .wallet-controls{display:flex;gap:18px;align-items:center}@media(max-width:600px){.wallet-controls{gap:8px}.wallet-controls .subtle{font-size:11px;max-width:64px;line-height:1.3}.breadcrumb{max-width:90px}}
 
 .agent-prompt-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.agent-copy-status{min-height:1.7em;margin:8px 0}.agent-prompt-text{font-family:monospace;font-size:13px;line-height:1.7;resize:vertical;min-height:240px}.agent-instructions>label{display:block;margin-bottom:8px}
+
+.fee-overlay:not([hidden]){position:fixed;inset:0;background:#19251db3;z-index:100;display:grid;place-items:center;padding:20px}.fee-approval{max-width:520px;width:100%}.fee-approval h2,.fee-approval p{margin-bottom:16px}.fee-approval dl{display:grid;grid-template-columns:1fr auto;gap:12px}.fee-approval dd{margin:0}

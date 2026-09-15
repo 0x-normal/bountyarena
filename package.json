@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
+    "@genlayer/transaction-kit": "0.1.0-rc.2",
+    "@genlayer/transaction-kit-react": "0.1.0-rc.2",
     "@hookform/resolvers": "^5.7.1",
     "@shadcn/react": "^0.3.0",
     "class-variance-authority": "0.7.1",
@@ -28,7 +30,8 @@
     "date-fns": "^4.4.0",
     "drizzle-orm": "0.45.2",
     "embla-carousel-react": "^8.6.0",
-    "genlayer-js": "^1.1.8",
+    "genlayer-js": "2.0.0-rc.1",
+    "genlayer-js-legacy": "npm:genlayer-js@1.1.8",
     "input-otp": "^1.4.2",
     "lucide-react": "^1.31.0",
     "next": "^16.3.4",

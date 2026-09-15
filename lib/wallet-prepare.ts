@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {studionet} from "genlayer-js/chains";
+import {studionet} from "genlayer-js-legacy/chains";
 import {addressSchema} from "./domain";
 const inputSchema=z.object({from:addressSchema,to:addressSchema.refine(v=>v.toLowerCase()===studionet.consensusMainContract?.address.toLowerCase(),"Unexpected transaction destination."),data:z.string().regex(/^0x[0-9a-fA-F]+$/).max(40000),value:z.string().regex(/^0x[0-9a-fA-F]+$/)}).strict();
 export async function prepareBrowserWallet(raw:unknown){

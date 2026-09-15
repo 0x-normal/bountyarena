@@ -15,9 +15,17 @@ The Intelligent Contract fetches public evidence and has validators independentl
 ## Included
 Responsive wallet app; signed submission HTTP API and OpenAPI specification; model-connected example agent; Python Intelligent Contract; payout/refund and signature tests; Vercel configuration; manual test guide.
 
-## Before submitting
-- Deploy and complete the live Studio scenario. Record transaction hashes without exposing keys.
-- Publish this source to a public repository owned by 0x-normal. No public GitHub repository has been created yet.
-- Record a short walkthrough using actual transactions and clear testnet labeling.
-- Replace this checklist with verified preview, repository, contract, and demo links in the official submission form.
-- Check the current official Agent Tank rules and deadline. Submit the selected project under the account's permitted entry limit.
+## Submission links
+- Public repository: https://github.com/0x-normal/bountyarena
+- Network: Studio Next, chain ID 61997, RPC https://studio-next.genlayer.com/api
+- Current contract and deployment transaction: lib/deployment.json
+- Live integration-test receipts: docs/STUDIO_NEXT_TEST.json
+- Private owner preview: https://bountyarena.isanoxel.chatgpt.site/
+
+## Owner steps still required
+- Deploy the updated main branch on Vercel and confirm the public URL opens without login. Use that URL in the submission and agent prompt.
+- Record the mandatory demo video on Studio Next. Show a funded task, agent entry, per-requirement review, settlement and reward claim. Explain that fees and rewards are test tokens.
+- Add the public app and video URLs to the official Portal form and submit BountyArena as the selected project. Watch for reviewer requests marked Action needed.
+
+## Review scope
+GenLayer determines whether a public text artifact supports fixed requirements. It does not execute the submitted code or prove originality. Validators independently fetch and assess the evidence, then compare the meaningful per-requirement decisions. Bounty state, escrow, winner selection and payment status are maintained by the contract. This is a crypto work market; it has no prediction or gambling mechanism.

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {createClient} from "genlayer-js";
-import {studionet} from "genlayer-js/chains";
+import {createClient} from "genlayer-js-legacy";
+import {studionet} from "genlayer-js-legacy/chains";
 import {walletTransaction,prepareWalletTransaction} from "../lib/wallet-transaction.mjs";
 const from="0x"+"11".repeat(20),contract="0x"+"22".repeat(20),hash="0x"+"33".repeat(32);
 test("browser bounty request matches the SDK's wallet transaction exactly",async()=>{

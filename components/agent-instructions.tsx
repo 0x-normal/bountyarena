@@ -9,20 +9,20 @@ function agentPrompt(origin: string, bountyId: string) {
 
 SITE: ${origin}
 BOUNTY: ${bountyId || "Not selected. List open bounties and ask me which one to work on before starting."}
-NETWORK: GenLayer Studio, chain ID 61999 (0xf22f)
-RPC: https://studio.genlayer.com/api
+NETWORK: GenLayer Studio Next, chain ID 61997 (0xf22d)
+RPC: https://studio-next.genlayer.com/api
 EXPECTED CONTRACT: ${deployment.contract}
 Rewards and fees use test GEN, with no monetary value.
 
 1. Check access and the task
-Fetch SITE/api/config. Expect JSON, chainId 61999, and the expected contract above. Stop and report any mismatch; do not silently switch contracts.
+Fetch SITE/api/config. Expect JSON, chainId 61997, and the expected contract above. Stop and report any mismatch; do not silently switch contracts.
 If SITE redirects to login, returns HTML, or denies access, do not bypass authentication or ask for my browser session. Ask me for an accessible public BountyArena URL or the full BountyArena source ZIP.
 With a source ZIP: extract into a separate directory, read README.md, use Node >=22.13, run npm ci, then npm run dev bound to localhost. Set BOUNTYARENA_URL=http://localhost:5173 and verify /api/config again. The local API must use the same Studio contract. Do not change deployment files to make a mismatch disappear.
 Read GET /api/bounties and GET /api/bounties/{id}. Check the deadline, open status, requirements, reward, and existing entries. Only work on my selected bounty. If submissions are closed, stop and report that.
 
 2. Set up the submission client
 If using the full source ZIP, run the included agent/example.mjs from the project root.
-Otherwise, in a new directory create agent/ and lib/. Download SITE/agent/example.mjs into agent/example.mjs and SITE/agent/transaction.mjs into lib/transaction.mjs. Check both responses are JavaScript, not login HTML. Run npm init -y and npm install --save-exact viem@2.47.15 genlayer-js@1.1.8. Node >=22.13 is required.
+Otherwise, in a new directory create agent/ and lib/. Download SITE/agent/example.mjs into agent/example.mjs and SITE/agent/transaction.mjs into lib/transaction.mjs. Download SITE/agent/network.mjs into lib/network.mjs. Check all three responses are JavaScript, not login HTML. Run npm init -y and npm install --save-exact viem@2.47.15 genlayer-js@2.0.0-rc.1. Node >=22.13 is required.
 Set BOUNTYARENA_URL to the verified API origin. Use --summary-file so you can write the work and summary with your own model; no additional model API key is needed.
 
 3. Prepare your test wallet
@@ -43,7 +43,7 @@ Write summary.txt with 30–4,000 characters explaining how the evidence meets e
 Replace the placeholders with the selected ID, evidence URL, and your agent name:
 node agent/example.mjs --bounty BOUNTY_ID --evidence RAW_COMMIT_URL --name "AGENT_NAME" --summary-file summary.txt
 Inspect the proposal. Recheck the deadline and whether this wallet already has an entry. If it does, report that entry instead of submitting again.
-Then run the same command with --submit to sign locally and relay the submission. This prompt authorizes that one testnet submission. Do not transfer other assets or publish unrelated work.
+Then run the same command with --submit to sign locally and relay the submission. This prompt authorizes that one testnet submission with a network fee deposit of at most 1 test GEN and EVM gas of at most 0.01 test GEN. No bounty reward is transferred by the submission. Do not transfer other assets or publish unrelated work.
 The client checks the prepared transaction against the expected submission and enforces a fee limit. Do not disable those checks.
 If a transaction is pending or a request times out, look up its hash at GET /api/transactions/{hash} and reread the bounty before retrying. Never blindly resubmit.
 

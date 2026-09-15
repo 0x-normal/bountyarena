@@ -1,0 +1,127 @@
+{
+  "contract": "0xeb6F8f23643Eae4b097c02a34c6AFAb16a0ec8f5",
+  "bounty": "next-1789426218873",
+  "sponsor": "0xAB0F031cCf4B6066e66c113363CC25A177A349Ab",
+  "incomplete_agent": "0x5313e2daa68f09D18C6e179c984976A6D4fEbdC1",
+  "qualified_agent": "0x229575fd29Cd4e7018dc8fFA68c87ac04f17a3F5",
+  "reward_wei": "100",
+  "refund_wei": "50",
+  "checks": [
+    "funding",
+    "signed-api-submissions",
+    "negative-review",
+    "positive-review",
+    "sponsor-entry-blocked",
+    "winner-selection",
+    "wrong-wallet-blocked",
+    "payout-balance",
+    "double-claim-blocked",
+    "refund-balance"
+  ],
+  "transactions": {
+    "create": {
+      "hash": "0x49763f5557b594c7e6fb7b63682b57b81773d6617691566fe4310fadeda96167",
+      "execution": "success",
+      "complete": true,
+      "fees": {
+        "deposit": "100000000000010352",
+        "consumed": "78633500000823",
+        "refunded": "99921366500009529"
+      }
+    },
+    "create-refund": {
+      "hash": "0x8956baf3cda75b3b276ccc189a77027fa64092e714d8cf12dc1229f8fefb42ed",
+      "execution": "success",
+      "complete": true,
+      "fees": {
+        "deposit": "100000000000010352",
+        "consumed": "78632750000823",
+        "refunded": "99921367250009529"
+      }
+    },
+    "incomplete-agent": {
+      "hash": "0x6a94c3ee6cdcf7df7ee709ddbd41293a950c7eac4e294297ff7cc63847c38c2e",
+      "complete": true
+    },
+    "qualified-agent": {
+      "hash": "0x9956b9383a7083a6a63c455d9f48e2ccce461ff16a748f292f96a39fa817df37",
+      "complete": true
+    },
+    "review-incomplete": {
+      "hash": "0xb1dc679640ca12faf510228f0d9467cb1bfc119f2253419eb634873a2067db4e",
+      "execution": "success",
+      "complete": true,
+      "fees": {
+        "deposit": "100000000000010352",
+        "consumed": "80227250000823",
+        "refunded": "99919772750009529"
+      }
+    },
+    "review-qualified": {
+      "hash": "0x565332c42030662ae15318b36829af2d6e3ff50b8263b6d8a6f4a74f30ac5a71",
+      "execution": "success",
+      "complete": true,
+      "fees": {
+        "deposit": "100000000000010352",
+        "consumed": "81982500000823",
+        "refunded": "99918017500009529"
+      }
+    },
+    "sponsor-entry-blocked": {
+      "hash": "0x85b1ef63d54b8bee7b12835fd245b385843e58ba6f33342c74f643f47c14842b",
+      "execution": "failed",
+      "complete": true,
+      "fees": {
+        "deposit": "100000000000010352",
+        "consumed": "78628000000823",
+        "refunded": "99921372000009529"
+      }
+    },
+    "settle": {
+      "hash": "0x01070d685d24b8421f50a05cdf76e486bdfc4b7cada3d94e9e2052ece51018c6",
+      "execution": "success",
+      "complete": true,
+      "fees": {
+        "deposit": "100000000000010352",
+        "consumed": "78650500000823",
+        "refunded": "99921349500009529"
+      }
+    },
+    "wrong-wallet-claim": {
+      "hash": "0x96440b1c4c8af078c0157ef82203ee455c6dfa879f0713810e6ad432a43e308c",
+      "execution": "failed",
+      "complete": true,
+      "fees": {
+        "deposit": "100160000000010352",
+        "consumed": "78628000000823",
+        "refunded": "100081372000009529"
+      }
+    },
+    "claim": {
+      "hash": "0x23e28135605f03e16852642e506f846082b1c2bf59444a17bd7617e7e13ae1fc",
+      "execution": "success",
+      "complete": true,
+      "fees": {
+        "deposit": "100160000000010352",
+        "consumed": "126326500000823",
+        "refunded": "100033673500009529"
+      }
+    },
+    "double-claim-blocked": {
+      "hash": "0x02a41afd8b8d3acf0b37e8d56ff8fbb7fc92b85073884c8297462e47cd423b05",
+      "execution": "failed",
+      "complete": true
+    },
+    "refund": {
+      "hash": "0xfa0f65a55f721be52f84d449740d26eb7432979a6cc779070c37fc50f081724b",
+      "execution": "success",
+      "complete": true,
+      "fees": {
+        "deposit": "100160000000010352",
+        "consumed": "126307500000823",
+        "refunded": "100033692500009529"
+      }
+    }
+  },
+  "completed_at": "2026-09-15T10:52:42.244Z"
+}

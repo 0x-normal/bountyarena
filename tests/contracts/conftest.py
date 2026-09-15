@@ -37,3 +37,11 @@ def windows_gltest_stdin(monkeypatch):
             local.setattr(os, "unlink", deferred_unlink)
             original(vm)
     monkeypatch.setattr(loader, "_inject_message_to_fd0", inject)
+
+@pytest.fixture(autouse=True)
+def v3_llm_mock_encoding(direct_vm, monkeypatch):
+    import json
+    original = direct_vm.mock_llm
+    def mock(pattern, response):
+        return original(pattern, json.dumps(json.dumps(response)) if isinstance(response, dict) else response)
+    monkeypatch.setattr(direct_vm, "mock_llm", mock)

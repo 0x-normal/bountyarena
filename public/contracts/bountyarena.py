@@ -1,5 +1,7 @@
-# { "Depends": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6" }
-from genlayer import *
+# { "Depends": "py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng" }
+import genlayer as gl
+from genlayer import Address, u256
+from genlayer.storage import TreeMap, DynArray
 import json
 import re
 from datetime import datetime, timezone
@@ -25,7 +27,7 @@ class Recipient:
     class Write:
         pass
 
-class BountyArena(gl.Contract):
+class BountyArena(gl.contract.Contract):
     bounties: TreeMap[str, str]
     ids: DynArray[str]
 
@@ -173,7 +175,7 @@ class BountyArena(gl.Contract):
             return (isinstance(proposed, dict) and proposed.get('decision') == other['decision'] and
                     [c.get('met') for c in proposed.get('criteria', [])] == [c['met'] for c in other['criteria']])
 
-        entry['review'] = gl.vm.run_nondet_unsafe(evaluate, validate)
+        entry['review'] = gl.vm.run_nondet(evaluate, validate)
         self.save(b)
 
     @gl.public.write

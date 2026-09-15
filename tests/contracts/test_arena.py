@@ -7,7 +7,7 @@ BODY = 'Connect a JSON-RPC provider to chain 61999. Handle rejected requests and
 @pytest.fixture
 def arena(direct_vm, direct_deploy):
     direct_vm.warp('2026-09-10T12:00:00Z')
-    c = direct_deploy('contracts/bountyarena.py', sdk_version='v0.2.16')
+    c = direct_deploy('contracts/bountyarena.py')
     direct_vm.value = 100
     c.create_bounty('bounty-001', 'Write a connection guide', 'Test Protocol', 'Documentation', json.dumps(['Include a provider connection example.']), 600)
     direct_vm.value = 0

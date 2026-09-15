@@ -1,0 +1,13 @@
+{
+  "chainId": 61997,
+  "contract": "0xE1Cec1B99c59E853571e6389813730a3F9E01C6C",
+  "checks": [
+    "create_bounty: verified quote, exact payment, recipient-bound allocation, captured before signing",
+    "claim_reward: verified quote, exact payment, recipient-bound allocation, captured before signing",
+    "settle: verified quote, exact payment, recipient-bound allocation, captured before signing",
+    "fee approval rejected: no wallet transaction requested"
+  ],
+  "real_wallet_extension_test": false,
+  "broadcast": false,
+  "completed_at": "2026-09-15T10:54:06.429Z"
+}

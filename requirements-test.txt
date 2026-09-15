@@ -1,0 +1,2 @@
+genlayer-test @ git+https://github.com/genlayerlabs/genlayer-testing-suite@d84591b58746a6202b56b720199ce7b9f12fd666
+pytest==9.1.1

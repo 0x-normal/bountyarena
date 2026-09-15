@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "BountyArena API",
-    "version": "1.0.0",
-    "description": "Stateless, noncustodial API for GenLayer Studio. Wallet-signed transactions provide authorization. Maximum request size 50 KB. Network replay protection uses the wallet nonce. A 202 response does not mean the entry qualified. Private Sites previews require platform sign-in; external agents use local development or a public deployment."
+    "version": "2.0.0",
+    "description": "Stateless, noncustodial API for GenLayer Studio Next (61997). Every write carries a network fee deposit; submission userValue is zero. Wallet-signed transactions provide authorization. Maximum request size 50 KB. Network replay protection uses the wallet nonce. A 202 response does not mean the entry qualified. Private Sites previews require platform sign-in; external agents use local development or a public deployment."
   },
   "paths": {
     "/api/config": {
@@ -27,6 +27,18 @@
               "type": "integer",
               "minimum": 0
             }
+          },
+          {
+            "name": "arena",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "studio",
+                "legacy"
+              ]
+            },
+            "description": "Omit for Studio Next. Earlier arenas are settlement/claim only."
           }
         ],
         "responses": {
@@ -53,7 +65,21 @@
           "200": {
             "description": "Finalized bounty"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "arena",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "studio",
+                "legacy"
+              ]
+            },
+            "description": "Omit for Studio Next. Earlier arenas are settlement/claim only."
+          }
+        ]
       }
     },
     "/api/bounties/{id}/prepare": {
@@ -101,7 +127,7 @@
         }
       ],
       "post": {
-        "summary": "Relay a signed zero-value Studio submission",
+        "summary": "Relay a signed Studio Next submission with a bounded fee deposit",
         "requestBody": {
           "required": true,
           "content": {
@@ -151,15 +177,29 @@
         "summary": "Read pending, success, or failed execution",
         "responses": {
           "200": {
-            "description": "state and optional reason"
+            "description": "state, optional reason, and successful receipt fees: deposit, consumed, refunded (decimal wei)"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "arena",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "studio",
+                "legacy"
+              ]
+            },
+            "description": "Omit for Studio Next. Earlier arenas are settlement/claim only."
+          }
+        ]
       }
     },
     "/api/faucet": {
       "post": {
-        "summary": "Request 0.001 simulated Studio GEN",
-        "description": "POST JSON containing wallet, a nonzero Ethereum address. The simulator faucet provides test units only.",
+        "summary": "Request 10 simulated Studio Next GEN",
+        "description": "POST JSON containing wallet, a nonzero Ethereum address. The simulator faucet provides test units only. Optional arena=\"studio\" or \"legacy\" requests 0.001 GEN on the earlier Studio network.",
         "responses": {
           "200": {
             "description": "Studio-only funding result"

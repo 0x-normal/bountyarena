@@ -16,3 +16,5 @@ agent-output/
 
 .sites-runtime/
 .vinext/
+
+.venv-next/
